@@ -17,13 +17,13 @@ func main() {
 
 	mux := defaultMux()
 
-	pathsToUrls, err := utils.GetUrlMap(*jsonFile, utils.JSON)
+	pathsToUrls, err := utils.GetURLMap(*jsonFile, utils.JSON)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	mapHandler := utils.MapHandler(pathsToUrls, mux)
 
-	pathsToUrls, err = utils.GetUrlMap(*yamlFile, utils.YAML)
+	pathsToUrls, err = utils.GetURLMap(*yamlFile, utils.YAML)
 	if err != nil {
 		log.Fatalln(err)
 	}

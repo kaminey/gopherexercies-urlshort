@@ -2,21 +2,24 @@ package utils
 
 import (
 	"encoding/json"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
+
+	"gopkg.in/yaml.v2"
 )
 
+// constants
 const (
 	JSON = "json"
 	YAML = "yaml"
 )
 
+// Pair is used to store path and related url combination
 type Pair struct {
 	Path string
-	Url  string
+	URL  string
 }
 
-func getJsonData(filename string) ([]Pair, error) {
+func getJSONData(filename string) ([]Pair, error) {
 	var pairs []Pair
 
 	data, err := ioutil.ReadFile(filename)
@@ -32,7 +35,7 @@ func getJsonData(filename string) ([]Pair, error) {
 	return pairs, nil
 }
 
-func getYamlData(filename string) ([]Pair, error) {
+func getYAMLData(filename string) ([]Pair, error) {
 	var pairs []Pair
 
 	data, err := ioutil.ReadFile(filename)
@@ -50,19 +53,20 @@ func getYamlData(filename string) ([]Pair, error) {
 
 func getFileData(filename, fileType string) ([]Pair, error) {
 	if fileType == JSON {
-		return getJsonData(filename)
+		return getJSONData(filename)
 	}
-	return getYamlData(filename)
+	return getYAMLData(filename)
 }
 
-func GetUrlMap(filename, fileType string) (map[string]string, error) {
+// GetURLMap returns a map of path and related url
+func GetURLMap(filename, fileType string) (map[string]string, error) {
 	pairs, err := getFileData(filename, fileType)
 	if err != nil {
 		return nil, err
 	}
 	urlMap := make(map[string]string)
 	for _, pair := range pairs {
-		urlMap[pair.Path] = pair.Url
+		urlMap[pair.Path] = pair.URL
 	}
 	return urlMap, nil
 }
